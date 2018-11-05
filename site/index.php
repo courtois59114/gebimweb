@@ -228,7 +228,17 @@
     <section class="bg-dark text-white" id="contactform">
     <?php
     // FORMULAIRE DE CONTACT
-
+    $errName = '';
+    $errEmail = '';
+    $errPhone = '';
+    $errMessage = '';
+    $result = '';
+    if (!isset($_POST["submit"])) {
+      $_POST['name'] = '';
+      $_POST['email'] = '';
+      $_POST['phone'] = '';
+      $_POST['message'] = '';
+    }
     if (isset($_POST["submit"])) {
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -253,7 +263,7 @@
         if (!$_POST['message'] || !strlen(trim($_POST['message'])) ) {
             $errMessage = 'S\'il vous plait, entrez votre message';
         }
-        $headers .= 'From:' .utf8_decode($name). ' <' .$email.'>' . '\r\n' .
+        $headers = 'From:' .utf8_decode($name). ' <' .$email.'>' . '\r\n' .
             'Reply-To:'.$email. '\r\n' .
             'Content-Type: text/plain; charset="utf-8"\r\n';
         // If there are no errors, send the email
@@ -283,18 +293,18 @@
                           <div class="row">
                               <div class="form-group col-lg-4">
                                   <label for="name">Votre nom</label>
-                                  <input id="name" name="name" type="text" class="form-control" value="<?php if (isset($_POST['name'])) { echo htmlspecialchars($_POST['name']); } ?>">
-                                  <?php echo "<p class='text-danger'>$errName</p>";?>
+                                  <input id="name" name="name" type="text" class="form-control" value="<?php echo htmlspecialchars($_POST['name']); ?>">
+                                  <?php echo "<p class='text-danger'>$errName</p>"; ?>
                               </div>
                               <div class="form-group col-lg-4">
                                   <label for="email">Votre email</label>
                                   <input id="email" name="email" type="email" class="form-control" value="<?php echo htmlspecialchars($_POST['email']); ?>">
-                                  <?php echo "<p class='text-danger'>$errEmail</p>";?>
+                                  <?php echo "<p class='text-danger'>$errEmail</p>"; ?>
                               </div>
                               <div class="form-group col-lg-4">
                                   <label for="phone">Votre téléphone</label>
                                   <input id="phone" name="phone" type="tel" class="form-control" value="<?php echo htmlspecialchars($_POST['phone']); ?>">
-                                  <?php echo "<p class='text-danger'>$errPhone</p>";?>
+                                  <?php echo "<p class='text-danger'>$errPhone</p>"; ?>
                               </div>
                               <div class="clearfix"></div>
                               <div class="form-group col-lg-12">
